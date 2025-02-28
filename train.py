@@ -6,7 +6,7 @@ import torch.nn as nn
 import torch.optim as optim
 from sklearn.preprocessing import StandardScaler
 from torch.utils.data import DataLoader, TensorDataset
-from model import DRAGMLP
+from model import MLP
 
 def configurer_dispositif():
     """Configure et retourne le dispositif de calcul (CPU ou GPU)"""
@@ -161,7 +161,7 @@ def creer_et_entrainer_modele(X_train_tensor, y_train_tensor, scaler_y, device):
     # Initialisation du modèle et de l'optimiseur
     input_size = X_train_tensor.shape[1]
     output_size = y_train_tensor.shape[1]
-    model = DRAGMLP(input_size, output_size).to(device)
+    model = MLP(input_size, output_size).to(device)
     optimizer = optim.Adam(model.parameters(), lr=0.001)
     
     # Paramètres d'entraînement

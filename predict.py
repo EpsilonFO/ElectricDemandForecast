@@ -2,7 +2,7 @@ import pandas as pd
 import numpy as np
 import torch
 import torch.nn as nn
-from model import DRAGMLP
+from model import MLP
 
 def configurer_dispositif():
     """Configure et retourne le dispositif de calcul (CPU ou GPU)"""
@@ -26,7 +26,7 @@ def charger_modele(device):
     output_size = model_params['output_size']
     
     # Création du modèle avec les dimensions sauvegardées
-    model = DRAGMLP(input_size, output_size).to(device)
+    model = MLP(input_size, output_size).to(device)
     
     # Chargement des poids du modèle
     model.load_state_dict(torch.load("Model/pred_model.pth"))
