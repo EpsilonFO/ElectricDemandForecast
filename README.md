@@ -10,8 +10,9 @@ Il est constitué de 4 fichiers :
 `predict.py`.
 
 ## Comment lancer le projet
-Tout d'abord, téléchargez les jeux de données via ce lien Drive (trop volumineux pour être ajoutés au repo GitHub) : 
+Tout d'abord, téléchargez les jeux de données via ce lien (trop volumineux pour être ajoutés au repo GitHub) : 
 [Data](https://drive.google.com/drive/folders/19CdmxhwE5sEEytkxwUzmQj2EoLTNOL8o?usp=sharing)
+
 Ensuite, ajoutez ce dossier au dossier du repo, et renommez le `Data`. Une fois ceci fait, lancez le script `prepare_data.py`.
 Le projet est prêt à être éxécuté.
 
