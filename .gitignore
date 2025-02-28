@@ -7,3 +7,5 @@ Solutions
 Solutions/*
 *.log
 *.csv
+logs/
+logs/*
