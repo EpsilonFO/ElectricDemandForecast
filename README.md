@@ -13,7 +13,7 @@ ElectricDemandForecast/
 ├── prepare_data.py
 ├── train.py
 ├── traitement_meteo.py
-├── Data/            # Après l'archive téléchargé et prepare_data lancé
+├── Data/            # Après l'archive Data téléchargé et prepare_data.py lancé
 |   ├── jours_feries_metropole.csv
 |   ├── population_region.csv
 |   ├── X_2022_final.csv
@@ -26,6 +26,11 @@ ElectricDemandForecast/
 |   ├── scaler_y.pt
 |   ├── total_columns.pt
 |   └── X_2022_prepared.csv
+├── save/            # Après l'archive Data téléchargé et prepare_data.py lancé
+|   └── test_mutant/
+|       └── best_model/
+|           ├── x.pkl
+|           └── best_model.pth
 └── Solutions/
     └── pred.csv
 ```
