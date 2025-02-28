@@ -7,6 +7,7 @@ Ce projet de Deep Learning consiste à prédire des consommations électriques p
 ```
 ElectricDemandForecast/
 ├── README.md        <-- Vous êtes ici
+├── dragon_model.py
 ├── model.py
 ├── predict.py
 ├── prepare_data.py
@@ -48,6 +49,10 @@ Ce fichier contient simplement notre architecture de modèle `MLP`.
 
 ### `traitement_meteo.py`
 Ce fichier montre comment nous traitons le fichier `meteo.parquet` : On regroupe par région en faisant la moyenne, puis on utilise la fonction `pivot` pour créer les colonnes par région et par variable, on sélectionne les régions (ou si besoin la base la plus proche), on met à jour les noms des colonnes, puis on utilise les fonctions `resample` et `interpolate` pour créer des lignes de relevé toutes les 30 minutes, on ajoute la colonne des jours feriés, on crée les colonnes pour la France globale, on enlève les dates problématiques liées au changement d'heure, on complète les dates manquantes pour `X_2022` puis on enregistre les jeux de données.
+
+### `dragon_model.py`
+Ce fichier utilise la bibliothèque `DRAGON` pour créer un modèle efficace et puissant.
+(WARNING : L'éxécution du fichier est très longue).
 
 ### `prepare_data.py`
 Ce fichier sert à initialiser correctement l'archive, en créant les dossiers nécessaires pour stocker les modèles et prédictions à venir.
