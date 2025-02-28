@@ -185,7 +185,7 @@ def ajouter_agregat_france(df_resampled, colonnes_a_agreger):
     poids = population_region["p21_pop"]/population_region["p21_pop"].sum()
     
     # Calculer les moyennes pondérées pour la France
-    noms_regions = population_region["nom_region"].tolist()
+    noms_regions = population_region["nom_reg"].tolist()
     for agg in colonnes_a_agreger:
         df_resampled[agg + "_France"] = df_resampled[[agg + "_" + nomreg for nomreg in noms_regions]].mul(poids.values, axis=1).sum(axis=1)
     
@@ -251,12 +251,23 @@ def completer_donnees_2022(df_2022):
         DataFrame: DataFrame 2022 complété
     """
     # Charger les données X_2022 existantes
-    X_2022 = pd.read_csv("Data/X_2022.csv")
+    X_2022 = pd.read_csv("Data/X_2022_final.csv")
     france2022_train = X_2022[['date']]
     
     # Ajouter les premières heures de l'année 2022
     date_range = pd.date_range(start='2022-01-01 00:00:00+01:00', 
                              end='2022-01-01 00:30:00+01:00', 
+                             freq='30min')
+    new_rows = pd.DataFrame()
+    for date in date_range:
+        new_row = france2022_train.iloc[0].copy()
+        new_row['date'] = date
+        new_rows = pd.concat([new_rows, new_row.to_frame().T], ignore_index=True)
+    france2022_train = pd.concat([france2022_train, new_rows], ignore_index=True)
+    
+    # Ajouter des heures manquantes du 27 mars 2022
+    date_range = pd.date_range(start='2022-03-27 04:00:00+02:00', 
+                             end='2022-03-27 04:30:00+02:00', 
                              freq='30min')
     new_rows = pd.DataFrame()
     for date in date_range:

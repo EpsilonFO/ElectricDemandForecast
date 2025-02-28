@@ -1,0 +1,9 @@
+*.zip
+Data/*
+Data
+Model
+Model/*
+Solutions
+Solutions/*
+*.log
+*.csv

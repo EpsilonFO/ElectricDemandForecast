@@ -72,9 +72,9 @@ def training_loop(model, data_loader, num_epochs, optimizer, scaler_y, device):
         # Suivi et rapport de progression
         loss_memory.append(ep_loss/len(data_loader))
         if (epoch+1) % 10 == 0:
-            print(f'Époque [{epoch+1}/{num_epochs}], Perte: {ep_loss/len(data_loader):.0f}')
+            print(f'Époque [{epoch+1}/{num_epochs}], Loss: {ep_loss/len(data_loader):.0f}')
             
-    print(f"Perte d'époque minimale: {np.min(loss_memory)}, à la {np.argmin(loss_memory)+1}ème époque")
+    print(f"Min epoch loss : {np.min(loss_memory)}, à la {np.argmin(loss_memory)+1}ème époque")
     return model
 
 class DRAGMLP(nn.Module):
@@ -99,6 +99,7 @@ def charger_donnees():
     X_train = pd.read_csv("Data/X_train_final.csv")
     y_train = pd.read_csv("Data/y_train.csv")
     X_2022 = pd.read_csv("Data/X_2022_final.csv")
+    print(X_2022[X_2022['date']>="2022-03-27"].head(50))
     return X_train, y_train, X_2022
 
 def definir_colonnes():
@@ -133,17 +134,17 @@ def preparer_donnees(X_train, y_train, X_2022, columns_to_aggregate, temporal, t
     X_2022['date'] = pd.to_datetime(X_2022['date'], utc=True, errors="coerce")
 
     # Extraction des caractéristiques temporelles
-    X_train.loc[:,'minute'] = X_train['date'].dt.minute
-    X_train.loc[:,'month'] = X_train['date'].dt.month
-    X_train.loc[:,'day'] = X_train['date'].dt.day
-    X_train.loc[:,'hour'] = X_train['date'].dt.hour
-    X_train.loc[:,'weekday'] = X_train['date'].dt.weekday
+    X_train['minute'] = X_train['date'].dt.minute
+    X_train['month'] = X_train['date'].dt.month
+    X_train['day'] = X_train['date'].dt.day
+    X_train['hour'] = X_train['date'].dt.hour
+    X_train['weekday'] = X_train['date'].dt.weekday
 
-    X_2022.loc[:,'minute'] = X_2022['date'].dt.minute
-    X_2022.loc[:,'month'] = X_2022['date'].dt.month
-    X_2022.loc[:,'day'] = X_2022['date'].dt.day
-    X_2022.loc[:,'hour'] = X_2022['date'].dt.hour
-    X_2022.loc[:,'weekday'] = X_2022['date'].dt.weekday
+    X_2022['minute'] = X_2022['date'].dt.minute
+    X_2022['month'] = X_2022['date'].dt.month
+    X_2022['day'] = X_2022['date'].dt.day
+    X_2022['hour'] = X_2022['date'].dt.hour
+    X_2022['weekday'] = X_2022['date'].dt.weekday
 
     # Encodage one-hot des caractéristiques temporelles
     X_train = pd.get_dummies(X_train, columns=['hour', "month",'weekday'], dtype=int)
