@@ -6,6 +6,7 @@ import torch.nn as nn
 import torch.optim as optim
 from sklearn.preprocessing import StandardScaler
 from torch.utils.data import DataLoader, TensorDataset
+from model import DRAGMLP
 
 def configurer_dispositif():
     """Configure et retourne le dispositif de calcul (CPU ou GPU)"""
@@ -77,29 +78,11 @@ def training_loop(model, data_loader, num_epochs, optimizer, scaler_y, device):
     print(f"Min epoch loss : {np.min(loss_memory)}, à la {np.argmin(loss_memory)+1}ème époque")
     return model
 
-class DRAGMLP(nn.Module):
-    """
-    Architecture de réseau neuronal pour prédire la consommation d'énergie régionale
-    """
-    def __init__(self, input_size, output_size, hidden_size=339):
-        super(DRAGMLP, self).__init__()
-        self.fc1 = nn.Linear(input_size, hidden_size)
-        self.fc2 = nn.Linear(input_size, hidden_size)
-        self.fc3 = nn.Linear(hidden_size, output_size)
-
-    def forward(self, x):
-        h = nn.ELU()(self.fc1(x))
-        x = nn.GELU()(h)
-        x = nn.Tanh()(x)
-        x = self.fc3(x)
-        return x
-
 def charger_donnees():
     """Charge les données d'entraînement et de test depuis les fichiers CSV"""
     X_train = pd.read_csv("Data/X_train_final.csv")
     y_train = pd.read_csv("Data/y_train.csv")
     X_2022 = pd.read_csv("Data/X_2022_final.csv")
-    print(X_2022[X_2022['date']>="2022-03-27"].head(50))
     return X_train, y_train, X_2022
 
 def definir_colonnes():
