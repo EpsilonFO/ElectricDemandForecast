@@ -14,7 +14,7 @@ from dragon.utils.plot_functions import draw_cell, load_archi, str_operations
 from model import MetaArchi
 
 # Variables globales
-batch_size = 128
+batch_size = 1024
 num_epochs = 5
 X_test = None
 y_test = None
@@ -228,7 +228,7 @@ def configurer_espace_recherche(num_classes):
 # Exécution de la recherche d'architecture
 def executer_recherche(search_space):
     """Exécute l'algorithme de recherche d'architecture"""
-    search_algorithm = Mutant_UCB(search_space, save_dir=f"save/test_mutant", T=20, N=10, K=10, E=0.01, evaluation=loss_function)
+    search_algorithm = Mutant_UCB(search_space, save_dir=f"save/test_mutant", T=200, N=10, K=50, E=0.01, evaluation=loss_function)
     search_algorithm.run()
     return search_algorithm
 
@@ -255,12 +255,12 @@ def entrainer_meilleur_modele(search_space):
     # Évaluation du modèle
     output, target, rmse = test_loop(bestmodel, X_test, y_test, scaler_y, device, True)
     
-    # Entraînement supplémentaire
-    batch_size = 128
-    train_loader = DataLoader(TensorDataset(X_test, y_test), batch_size=batch_size, shuffle=False)
-    num_epochs = 5
-    optimizer = torch.optim.Adam(bestmodel.parameters(), lr=0.001)
-    bestmodel = training_loop(bestmodel, train_loader, num_epochs, optimizer, scaler_y, device, True)
+    # # Entraînement - si on ne veut pas charger les poids avec le .pth
+    # batch_size = 1024
+    # train_loader = DataLoader(TensorDataset(X_test, y_test), batch_size=batch_size, shuffle=False)
+    # num_epochs = 5
+    # optimizer = torch.optim.Adam(bestmodel.parameters(), lr=0.001)
+    # bestmodel = training_loop(bestmodel, train_loader, num_epochs, optimizer, scaler_y, device, True)
     
     return bestmodel
 
@@ -298,7 +298,7 @@ def main():
     X_train, y_train, X_2022 = preparer_donnees(X_train_df, y_train_df, X_2022_df)
     
     # Configuration de l'entraînement
-    batch_size = 128
+    batch_size = 1024
     train_loader = DataLoader(TensorDataset(X_train, y_train), batch_size=batch_size, shuffle=False)
     num_epochs = 5
     input_shape = (X_train.shape[1],)
