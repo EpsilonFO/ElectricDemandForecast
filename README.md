@@ -13,7 +13,7 @@ ElectricDemandForecast/
 ├── prepare_data.py
 ├── train.py
 ├── traitement_meteo.py
-├── Data/            # Après l'archive Data téléchargé et prepare_data.py lancé
+├── Data/            # Après avoir lancé prepare_data.py
 |   ├── jours_feries_metropole.csv
 |   ├── population_region.csv
 |   ├── X_2022_final.csv
@@ -26,20 +26,17 @@ ElectricDemandForecast/
 |   ├── scaler_y.pt
 |   ├── total_columns.pt
 |   └── X_2022_prepared.csv
-├── save/            # Après l'archive Data téléchargé et prepare_data.py lancé
+├── save/            # Après avoir lancé prepare_data.py
 |   └── test_mutant/
 |       └── best_model/
 |           ├── x.pkl
 |           └── best_model.pth
-└── Solutions/       # Après l'archive Data téléchargé et prepare_data.py lancé
+└── Solutions/       # Après avoir lancé prepare_data.py
     └── pred.csv
 ```
 
 ## Comment lancer le projet
-Tout d'abord, téléchargez les jeux de données via ce lien (trop volumineux pour être ajoutés au repo GitHub) : 
-[Data](https://drive.google.com/drive/folders/19CdmxhwE5sEEytkxwUzmQj2EoLTNOL8o?usp=sharing)
-
-Ensuite, ajoutez ce dossier au dossier du repo, et renommez le `Data`. Une fois ceci fait, lancez le script `prepare_data.py`.
+Tout d'abord, lancez le script `prepare_data.py`.
 Le projet est prêt à être éxécuté, lancez d'abord `train.py` pour entraîner le modèle et enregistrer les informations dans le dossier `Model` puis lancez `predict.py` pour mettre à jour le fichier `pred.csv` dans `Solutions`.
 
 ## Descriptions des fichiers
