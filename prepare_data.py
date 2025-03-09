@@ -1,5 +1,14 @@
 import os
 import shutil
+import subprocess
+
+try:
+    # Exécuter la commande git lfs pull
+    result = subprocess.run(['git', 'lfs', 'pull'], check=True, text=True, capture_output=True)
+except subprocess.CalledProcessError as e:
+    print(f"Une erreur s'est produite : {e}")
+    print(f"Sortie standard : {e.stdout}")
+    print(f"Erreur standard : {e.stderr}")
 
 # Définition des dossiers
 data_dir = "Data"
