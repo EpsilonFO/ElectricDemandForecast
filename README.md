@@ -1,5 +1,4 @@
 # Deep Learning Challenge
-Auteurs : Lylian CHALLIER & Félix OLLIVIER
 
 Ce projet de Deep Learning consiste à prédire des consommations électriques par région et métropoles de l'année 2022, à partir de données météos et des consommations électriques de 2017 à 2021 (et 2022 pour la météo).
 
